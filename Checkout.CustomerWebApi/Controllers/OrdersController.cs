@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Checkout.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Checkout.CustomerWebApi.Controllers
@@ -7,11 +8,19 @@ namespace Checkout.CustomerWebApi.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public OrdersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var userId = _userService.GetCurrentUserId(User);
+            return new string[] { "value1", userId.ToString() };
         }
 
         // GET api/values/5
