@@ -1,4 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Checkout.BusinessCommon;
+using Checkout.Domain;
+using Checkout.Domain.Models;
+using Checkout.Domain.Requests;
 using Checkout.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,43 +15,46 @@ namespace Checkout.CustomerWebApi.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IOrdersRepository _ordersRepository;
 
-        public OrdersController(IUserService userService)
+        public OrdersController(IUserService userService, IOrdersRepository ordersRepository)
         {
             _userService = userService;
+            _ordersRepository = ordersRepository;
         }
 
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            var userId = _userService.GetCurrentUserId(User);
-            return new string[] { "value1", userId.ToString() };
-        }
+        public async Task<ActionResult<IList<OrderModel>>> GetAllOrders() =>
+            (await _ordersRepository.GetAllOrdersForUser(GetUserId())).ToArray();
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<OrderModel>> GetOrderById(string orderId) =>
+            await _ordersRepository.GetOrderById(GetUserId(), orderId);
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        [HttpPost("create")]
+        public async Task<ActionResult<string>> CreateOrder() =>
+            await _ordersRepository.CreateOrderForUser(GetUserId());
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        [HttpPost("addToOrder/{orderId}")]
+        public async Task AddItemToOrder(string orderId, [FromBody] CreateOrderItemRequest item) =>
+            await _ordersRepository.AddItemToOrder(GetUserId(), orderId, item);
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        [HttpPost("changeOrderItem/{orderId}")]
+        public async Task ChangeOrderItemQuantity(string orderId, [FromBody] ChangeOrderItemRequest request) =>
+            await _ordersRepository
+                .ChangeOrderItemQuantity(GetUserId(), orderId, request.OrderItemId, request.Quantity);
+
+        [HttpPost("removeOrderItem/{orderId}")]
+        public async Task RemoveOrderItemQuantity(string orderId, [FromBody] RemoveOrderItemRequest request) =>
+            await _ordersRepository
+                .RemoveItemFromOrder(GetUserId(), orderId, request.OrderItemId);
+
+        [HttpPost("purge/{orderId}")]
+        public async Task PurgeOrder(string orderId) =>
+            await _ordersRepository
+                .PurgeOrder(GetUserId(), orderId);
+
+
+        private ulong GetUserId() => _userService.GetCurrentUserId(User);
     }
 }

@@ -2,9 +2,11 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Checkout.CustomerWebApi.Ioc;
+using Checkout.DataAccess.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +26,7 @@ namespace Checkout.CustomerWebApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<OrdersContext>(options => options.UseInMemoryDatabase("CheckoutDB"));
             var bootstrapper = new Bootstraper();
             ApplicationContainer = bootstrapper.CreateContainer(services);
             return new AutofacServiceProvider(ApplicationContainer);

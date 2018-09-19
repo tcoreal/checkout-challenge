@@ -16,6 +16,7 @@ namespace Checkout.CustomerWebApi.Ioc
         }
 
         private void RegisterModules(ContainerBuilder builder) => 
-            builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<InfrastructureModule>()
+                .RegisterModule<DataAccessModule>();
     }
 }
