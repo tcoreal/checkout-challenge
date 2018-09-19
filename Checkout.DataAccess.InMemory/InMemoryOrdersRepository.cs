@@ -54,12 +54,13 @@ namespace Checkout.DataAccess.InMemory
             return orderId;
         }
 
-        public async Task AddItemToOrder(ulong userId, string orderId, CreateOrderItemRequest request)
+        public async Task<string> AddItemToOrder(ulong userId, string orderId, CreateOrderItemRequest request)
         {
             var order = await GetOrder(userId, orderId);
+            var orderItemId = Guid.NewGuid().ToString();
             var newOrderItem = new OrderItemEntity
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = orderItemId,
                 OrderId = order.Id,
                 Name = request.Name,
                 Description = request.Description,
@@ -67,6 +68,7 @@ namespace Checkout.DataAccess.InMemory
             };
             await _ordersContext.OrderItems.AddAsync(newOrderItem);
             await _ordersContext.SaveChangesAsync();
+            return orderItemId;
         }
 
         public async Task ChangeOrderItemQuantity(ulong userId, string orderId, string orderItemId, int quantity)

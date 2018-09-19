@@ -36,7 +36,7 @@ namespace Checkout.CustomerWebApi.Controllers
             await _ordersRepository.CreateOrderForUser(GetUserId());
 
         [HttpPost("addToOrder/{orderId}")]
-        public async Task AddItemToOrder(string orderId, [FromBody] CreateOrderItemRequest item) =>
+        public async Task<ActionResult<string>> AddItemToOrder(string orderId, [FromBody] CreateOrderItemRequest item) =>
             await _ordersRepository.AddItemToOrder(GetUserId(), orderId, item);
 
         [HttpPost("changeOrderItem/{orderId}")]
