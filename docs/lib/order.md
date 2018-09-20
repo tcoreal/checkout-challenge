@@ -5,7 +5,7 @@ Abstraction for manupulation with specific order.
 ## Get Properties
 
  * **Id**  - id of the order 
- * **Items** - collection of order items [abstractions](../../Checkout.CustomerLib/DomainModel/Contract/IOrderItem.cs)
+ * **Items** - collection of order items [abstractions](order-item.md)
  
 ## Methods:
 * **Purge** - triggers api call for removing all items from order.
