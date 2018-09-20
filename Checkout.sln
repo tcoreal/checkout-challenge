@@ -5,17 +5,19 @@ VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.CustomerWebApi", "Checkout.CustomerWebApi\Checkout.CustomerWebApi.csproj", "{C7C6433F-7748-494E-B38E-0AEDBBFBF3FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Domain", "Checkout.Domain\Checkout.Domain.csproj", "{DD041771-F2B2-4C94-8455-4C09B60C1B13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Domain", "Checkout.Domain\Checkout.Domain.csproj", "{DD041771-F2B2-4C94-8455-4C09B60C1B13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.Infrastructure", "Checkout.Infrastructure\Checkout.Infrastructure.csproj", "{8883F6F5-0DC1-4CF2-B4BC-874EA5CE1EAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.Infrastructure", "Checkout.Infrastructure\Checkout.Infrastructure.csproj", "{8883F6F5-0DC1-4CF2-B4BC-874EA5CE1EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.BusinessCommon", "Checkout.BusinessCommon\Checkout.BusinessCommon.csproj", "{7A079A33-8721-42AF-BBD1-38F5D77D17A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.BusinessCommon", "Checkout.BusinessCommon\Checkout.BusinessCommon.csproj", "{7A079A33-8721-42AF-BBD1-38F5D77D17A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.DataAccess.InMemory", "Checkout.DataAccess.InMemory\Checkout.DataAccess.InMemory.csproj", "{DDD7BDE1-AB8D-4629-95EC-F4EFE6FC3023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.DataAccess.InMemory", "Checkout.DataAccess.InMemory\Checkout.DataAccess.InMemory.csproj", "{DDD7BDE1-AB8D-4629-95EC-F4EFE6FC3023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.CustomerLib", "Checkout.CustomerLib\Checkout.CustomerLib.csproj", "{98E155EC-3939-4AA8-9D7C-70968BA85DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.CustomerLib", "Checkout.CustomerLib\Checkout.CustomerLib.csproj", "{98E155EC-3939-4AA8-9D7C-70968BA85DCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.CustomerLib.Demo", "Checkout.CustomerLib.Demo\Checkout.CustomerLib.Demo.csproj", "{3937A21B-7922-4FCA-9CEF-AD986D8122A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.CustomerLib.Demo", "Checkout.CustomerLib.Demo\Checkout.CustomerLib.Demo.csproj", "{3937A21B-7922-4FCA-9CEF-AD986D8122A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.UnitTests", "Checkout.UnitTests\Checkout.UnitTests.csproj", "{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{3937A21B-7922-4FCA-9CEF-AD986D8122A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3937A21B-7922-4FCA-9CEF-AD986D8122A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3937A21B-7922-4FCA-9CEF-AD986D8122A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
