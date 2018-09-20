@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkout.CustomerLib
@@ -10,13 +12,13 @@ namespace Checkout.CustomerLib
         private readonly HttpClient _httpClient;
         private readonly IJsonSerializer _jsonSerializer;
 
+        public delegate TResponse ResponseSerializeDelegate<TResponse>(string response, IJsonSerializer serializer);
         public HttpRequester(IJsonSerializer jsonSerializer, ILoggerWriter loggerWriter)
         {
             _loggerWriter = loggerWriter;
             _jsonSerializer = jsonSerializer ?? new NewtonsoftSerializer();
             _httpClient = new HttpClient();
         }
-
 
         public async Task<TResponse> ProcessGetRequest<TResponse>(string requestUrl)
         {
@@ -32,21 +34,18 @@ namespace Checkout.CustomerLib
             }
         }
 
-        public async Task<TResponse> ProcessPostRequest<TRequest, TResponse>(string requestUrl, TRequest request = default(TRequest))
+        public async Task<TResponse> ProcessPostRequest<TRequest, TResponse>(string requestUrl,
+            TRequest request = default(TRequest), ResponseSerializeDelegate<TResponse> deserializeFunc = null)
         {
             string requestBody = null;
             try
             {
-                StringContent stringContent = new StringContent("");
-                if (!Equals(request, default(TRequest)))
-                {
-                    requestBody = _jsonSerializer.Serialize(request);
-                    stringContent = new StringContent(requestBody);
-                }
-
-                var response = await _httpClient.PostAsync(requestUrl, stringContent);
+                requestBody = Equals(request, default(TRequest)) ? "" : _jsonSerializer.Serialize(request);
+                var deserialize = deserializeFunc ?? DeserializeByDefault<TResponse>;
+                var response = await _httpClient.PostAsync(requestUrl, BuildStringContent(requestBody));
                 var stringResponse = await response.Content.ReadAsStringAsync();
-                return _jsonSerializer.Deserialize<TResponse>(stringResponse);
+
+                return deserialize(stringResponse, _jsonSerializer);
             }
             catch (Exception ex)
             {
@@ -61,7 +60,7 @@ namespace Checkout.CustomerLib
             try
             {
                 requestBody = _jsonSerializer.Serialize(request);
-                await _httpClient.PostAsync(requestUrl, new StringContent(requestBody));
+                await _httpClient.PostAsync(requestUrl, BuildStringContent(requestBody));
             }
             catch (Exception ex)
             {
@@ -69,5 +68,11 @@ namespace Checkout.CustomerLib
                 throw;
             }
         }
+
+        private TResponse DeserializeByDefault<TResponse>(string response, IJsonSerializer serializer) =>
+            serializer.Deserialize<TResponse>(response);
+
+        private static StringContent BuildStringContent(string requestBody) =>
+            new StringContent(requestBody, Encoding.UTF8, MediaTypeNames.Application.Json);
     }
 }

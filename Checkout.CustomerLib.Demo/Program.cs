@@ -6,7 +6,7 @@ namespace Checkout.CustomerLib.Demo
 {
     class Program
     {
-        private const string ApiUrl = "https://localhost:44323/api/orders/";
+        private const string ApiUrl = "http://localhost:5000/api/orders";
         static void Main(string[] args)
         {
             ExecuteDemo().Wait();
@@ -14,9 +14,13 @@ namespace Checkout.CustomerLib.Demo
 
         private static async Task ExecuteDemo()
         {
-            await CreateOrders();
+            var orderId = await CreateOrders();
 
-            var storage = new OrdersStorage(ApiUrl);
+            var storage = new OrdersStorage(ApiUrl, new ConsoleLoggerWriter());
+
+            var mainOrder = await storage.GetOrderById(orderId);
+            await mainOrder.AddOrderItem("Xiaomi Mi10", "Brand new chinese phone", 4);
+
             var iphoneItems = new List<IOrderItem>();
             Console.WriteLine("Orders in storage");
             foreach (var order in await storage.GetAllOrders())
@@ -73,14 +77,29 @@ namespace Checkout.CustomerLib.Demo
                 $"Description:{orderItem.Description}, Quantity:{orderItem.Quantity}");
         }
 
-        private static async Task CreateOrders()
+        private static async Task<string> CreateOrders()
         {
-            var creator = new OrdersCreator(ApiUrl);
-            await creator.CreateOrder()
+            var creator = new OrdersCreator(ApiUrl, new ConsoleLoggerWriter());
+            return await creator.CreateOrder()
                 .WithItem("Iphone Xs", "Brand new Iphone", 10)
                 .WithItem("Iphone Xs Max", "Brand new Iphone", 3)
                 .WithItem("Samsung Galaxy 9", "Brand new Samsung", 5)
                 .Build();
+        }
+    }
+
+    internal class ConsoleLoggerWriter : ILoggerWriter
+    {
+        public void Debug(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        public void Error(string message, Exception exception)
+        {
+            Console.WriteLine(message);
+            Console.WriteLine($"Exception: {exception}");
+
         }
     }
 }

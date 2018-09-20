@@ -5,6 +5,6 @@ namespace Checkout.CustomerLib
     internal class OrderResponse
     {
         public string Id { get; set; }
-        public List<OrderItemResponse> Items { get; set; }
+        public List<OrderItemResponse> OrderItems { get; set; }
     }
 }

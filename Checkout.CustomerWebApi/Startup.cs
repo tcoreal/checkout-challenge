@@ -44,7 +44,6 @@ namespace Checkout.CustomerWebApi
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseMvc();
 
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());

@@ -10,9 +10,9 @@ namespace Checkout.CustomerLib
         private readonly IHttpRequester _httpRequester;
         public OrdersApiProxy(string apiUrl, ILoggerWriter loggerWriter, IJsonSerializer jsonSerializer)
         {
-            _httpRequester = new HttpRequester(jsonSerializer, loggerWriter);
-            _apiUrl = apiUrl;
             _loggerWriter = loggerWriter ?? new EmptyLoggerWriter();
+            _httpRequester = new HttpRequester(jsonSerializer, _loggerWriter);
+            _apiUrl = apiUrl;
         }
 
         public async Task<IEnumerable<OrderResponse>> GetAllOrders()
@@ -34,7 +34,8 @@ namespace Checkout.CustomerLib
         public async Task<string> CreateOrder()
         {
             _loggerWriter.Debug("CreateOrder triggered");
-            var result = await _httpRequester.ProcessPostRequest<string,string>($"{_apiUrl}/create/");
+            var result = await _httpRequester.ProcessPostRequest<string, string>($"{_apiUrl}/create/",
+                deserializeFunc: (response, serializer) => response);
             _loggerWriter.Debug($"CreateOrder was succeeded with orderId:{result} ");
             return result;
         }
@@ -42,9 +43,8 @@ namespace Checkout.CustomerLib
         public async Task<string> AddItemToOrder(string orderId, CreateOrderItemRequest request)
         {
             _loggerWriter.Debug($"AddItemToOrder triggered for orderId:{orderId}");
-            var result =
-                await _httpRequester.ProcessPostRequest<CreateOrderItemRequest, string>(
-                    $"{_apiUrl}/addToOrder/{orderId}/", request);
+            var result = await _httpRequester.ProcessPostRequest($"{_apiUrl}/addToOrder/{orderId}/", request,
+                (response, serializer) => response);
             _loggerWriter.Debug($"AddItemToOrder was succeeded with orderId:{result} and orderItemId:{result} ");
             return result;
         }
@@ -66,7 +66,7 @@ namespace Checkout.CustomerLib
         public async Task PurgeOrder(string orderId)
         {
             _loggerWriter.Debug($"PurgeOrder triggered for orderId:{orderId}");
-            await _httpRequester.ProcessPostRequestWithoutResponse<string>($"{_apiUrl}/removeOrderItem/{orderId}/");
+            await _httpRequester.ProcessPostRequestWithoutResponse<string>($"{_apiUrl}/purge/{orderId}/");
             _loggerWriter.Debug($"PurgeOrder was succeeded with orderId:{orderId}");
         }
     }

@@ -21,7 +21,7 @@ namespace Checkout.CustomerLib
             return this;
         }
 
-        public async Task Build()
+        public async Task<string> Build()
         {
             var orderId = await _apiProxy.CreateOrder();
             foreach (var item in _items)
@@ -29,6 +29,8 @@ namespace Checkout.CustomerLib
                 await _apiProxy.AddItemToOrder(orderId,
                     new CreateOrderItemRequest(item.quantity, item.name, item.description));
             }
+
+            return orderId;
         }
     }
 }
