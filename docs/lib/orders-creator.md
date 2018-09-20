@@ -11,7 +11,7 @@ API for easy creation of orders.
  * **IJsonSerializer:** - allows to implement own json serializer(uses newtonsoft by default)
  
 ## Methods:
-* *CreateOrder**  - starts a fluent api call with folowed methods
+* **CreateOrder**  - starts a fluent api call with folowed methods
    * **WithItem** -  virtually adds order item to a newly crated order 
    * **Build** - commits an api call, creating order and items. Retuns id of newly created order   
 
