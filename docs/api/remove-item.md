@@ -12,7 +12,7 @@ Web API for adding item to existing order.
    * url part -  orderId: string
    * body - { orderItemId: string }
    
- * **Output:** Id of new order item(string)
+ * **Output:** None
  * **Errors:** Returns an error if order does not exist
  
 ## Request Body Example:
