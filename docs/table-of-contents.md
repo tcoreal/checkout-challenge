@@ -13,5 +13,8 @@ This document provides a table of contents for all the checkout-challenge docume
 * **Client Library** - documentation related to client library.
   * [Order Creator](lib/orders-creator.md) - overview of easy and fast fluent API for creating orders together with items.
   * [Order Storage](lib/orders-storage.md) - overview of API for fetching existing orders.
-  * [IOrder](lib/order.md) - abstraction to manipulate with specific order.
-  * [Demo Console App](Checkout.CustomerLib.Demo/Program.cs) - demonstration of Client Library possibilities.
+  * [IOrder](lib/order.md) - abstraction to manipulate specific order.
+  * [IOrderItem](lib/order.md) - abstraction to manipulate specific order item.
+  * [Demo Console App](../Checkout.CustomerLib.Demo/Program.cs) - demonstration of Client Library possibilities.
+  
+  [Back To Readme](../README.md)
