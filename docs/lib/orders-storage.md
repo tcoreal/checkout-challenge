@@ -11,8 +11,8 @@ API for fetching existing orders.
  * **IJsonSerializer:** - allows to implement own json serializer(uses newtonsoft by default)
  
 ## Methods:
-* **GetOrderById** - fetches an [order abstraction](../../Checkout.CustomerLib/DomainModel/Contract/IOrder.cs)  by order id(string).
-* **GetAllOrders** - fetches [all orders ](../../Checkout.CustomerLib/DomainModel/Contract/IOrder.cs)  for specific user.
+* **GetOrderById** - fetches an [order abstraction](order.md)  by order id(string).
+* **GetAllOrders** - fetches [all orders ](order.md)  for specific user.
 
 ## Example:
 ~~~javascript
