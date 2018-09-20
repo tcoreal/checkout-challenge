@@ -1,6 +1,6 @@
 # Create Order
 
-Web API for creating orders. Returns Id of a newly created order.
+Web API Call for creating orders.
 
 ## Specification:
 
