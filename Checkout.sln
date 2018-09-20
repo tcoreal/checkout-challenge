@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Checkout.CustomerLib.Demo",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.UnitTests", "Checkout.UnitTests\Checkout.UnitTests.csproj", "{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkout.IntegrationTests", "Checkout.IntegrationTests\Checkout.IntegrationTests.csproj", "{DCB5B46B-7467-469C-A66D-58AB4E4EB13C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18D06B72-6F0B-4B47-9A7D-3FC94CC84D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB5B46B-7467-469C-A66D-58AB4E4EB13C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB5B46B-7467-469C-A66D-58AB4E4EB13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB5B46B-7467-469C-A66D-58AB4E4EB13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB5B46B-7467-469C-A66D-58AB4E4EB13C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

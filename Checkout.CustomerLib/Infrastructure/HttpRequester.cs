@@ -43,6 +43,7 @@ namespace Checkout.CustomerLib
                 requestBody = Equals(request, default(TRequest)) ? "" : _jsonSerializer.Serialize(request);
                 var deserialize = deserializeFunc ?? DeserializeByDefault<TResponse>;
                 var response = await _httpClient.PostAsync(requestUrl, BuildStringContent(requestBody));
+                response.EnsureSuccessStatusCode();
                 var stringResponse = await response.Content.ReadAsStringAsync();
 
                 return deserialize(stringResponse, _jsonSerializer);
@@ -60,7 +61,8 @@ namespace Checkout.CustomerLib
             try
             {
                 requestBody = _jsonSerializer.Serialize(request);
-                await _httpClient.PostAsync(requestUrl, BuildStringContent(requestBody));
+                var response = await _httpClient.PostAsync(requestUrl, BuildStringContent(requestBody));
+                response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
             {
