@@ -17,4 +17,6 @@ This document provides a table of contents for all the checkout-challenge docume
   * [IOrderItem](lib/order.md) - abstraction to manipulate specific order item.
   * [Demo Console App](../Checkout.CustomerLib.Demo/Program.cs) - demonstration of Client Library possibilities.
   
-  [Back To Readme](../README.md)
+  ---
+| Return: [README](../README.md) |
+|----|
