@@ -16,7 +16,12 @@ namespace Checkout.CustomerLib
         }
 
         public string Id { get; }
-        public Task Purge() => _apiProxy.PurgeOrder(Id);
+        public async Task Purge()
+        {
+            await _apiProxy.PurgeOrder(Id);
+            _items.Clear();
+        }
+
         public async Task AddOrderItem(string name, string description, int quantity)
         {
             var orderItemId =
