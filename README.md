@@ -12,3 +12,7 @@ Client library is a wrapper for WEB API, that provides the same functionality.
 
 ## Database
 This project uses in memory DB together with EntityFrameworkCore
+
+## Documentation
+
+See [Table of Contents](docs/table-of-contents.md)
