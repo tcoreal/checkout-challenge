@@ -1,6 +1,6 @@
 # Remove Item
 
-Web API for adding item to existing order.
+Web API Call for adding item to existing order.
 
 ## Specification:
 
